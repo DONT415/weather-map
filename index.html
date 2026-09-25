@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather Map</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌪️</text></svg>" />
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-velocity/dist/leaflet-velocity.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div id="map"></div>
+
+  <div id="search-bar">
+    <input type="text" id="search-input" placeholder="Tìm địa điểm..." autocomplete="off" />
+    <div id="search-suggestions"></div>
+  </div>
+
+  <button id="locate-btn" title="Vị trí của tôi">📍</button>
+
+  <div id="info-panel">
+    <h1 id="app-title">Weather Map</h1>
+    <p id="location-name">Chọn 1 điểm trên bản đồ</p>
+    <div id="weather-details">
+      <span class="placeholder-text">Chưa có dữ liệu</span>
+    </div>
+    <div id="meteogram-panel" style="display: none;">
+      <div id="meteogram-title">Dự báo 24 giờ tới</div>
+      <canvas id="meteogram-canvas"></canvas>
+    </div>
+  </div>
+
+  <div id="layer-selector">
+    <button class="layer-btn active" data-layer="wind">💨 Gió</button>
+    <button class="layer-btn" data-layer="temp">🌡️ Nhiệt độ</button>
+    <button class="layer-btn" data-layer="rain">🌧️ Mưa</button>
+    <button class="layer-btn" data-layer="clouds">☁️ Mây</button>
+    <button class="layer-btn" data-layer="pressure">🧭 Áp suất</button>
+    <button class="layer-btn" data-layer="uv">☀️ UV</button>
+    <button class="layer-btn" data-layer="airquality">🌫️ Kh.khí</button>
+    <button class="layer-btn" data-layer="waves">🌊 Sóng</button>
+  </div>
+
+  <div id="timeline-bar">
+    <button id="play-btn">▶</button>
+    <input type="range" id="timeline-slider" min="0" max="23" value="0" />
+    <span id="timeline-label">Bây giờ</span>
+  </div>
+
+  <div id="day-tabs"></div>
+
+  <div id="legend">
+    <div id="legend-title">Gió (km/h)</div>
+    <div id="legend-gradient"></div>
+    <div id="legend-labels">
+      <span id="legend-min">0</span>
+      <span id="legend-max">15+</span>
+    </div>
+  </div>
+
+  <!-- ĐÃ THÊM: LLM Agent - hỏi đáp + báo cáo tự động theo ngữ cảnh bản đồ -->
+  <button id="agent-toggle-btn" title="Trợ lý AI">🤖</button>
+
+  <div id="agent-panel" class="hidden">
+    <div class="agent-header">
+      <div class="agent-tabs">
+        <button class="agent-tab active" data-tab="ask">💬 Hỏi đáp</button>
+        <button class="agent-tab" data-tab="report">📊 Báo cáo</button>
+      </div>
+      <button id="agent-close-btn" title="Đóng">×</button>
+    </div>
+
+    <div id="agent-tab-ask" class="agent-tab-content active">
+      <div id="agent-context-status" class="agent-context-status"></div>
+      <div id="agent-chat-log" class="agent-chat-log"></div>
+      <form id="agent-ask-form" class="agent-ask-form">
+        <input type="text" id="agent-question-input" placeholder="VD: chiều nay ở đây có mưa không?" autocomplete="off" />
+        <button type="submit">Gửi</button>
+      </form>
+    </div>
+
+    <div id="agent-tab-report" class="agent-tab-content">
+      <div id="agent-report-context-status" class="agent-context-status"></div>
+      <div class="agent-report-range-buttons">
+        <button class="agent-range-btn" data-range="1">24 giờ</button>
+        <button class="agent-range-btn" data-range="3">3 ngày</button>
+        <button class="agent-range-btn" data-range="7">7 ngày</button>
+      </div>
+      <div class="agent-chart-wrap">
+        <canvas id="agent-report-chart"></canvas>
+      </div>
+      <div id="agent-report-narrative" class="agent-report-narrative"></div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/leaflet-velocity/dist/leaflet-velocity.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+
+  <script src="js/map-init.js"></script>
+  <script src="js/borders.js"></script>
+  <script src="js/click-info.js"></script>
+  <script src="js/meteogram.js"></script>
+  <script src="js/weather-data.js"></script>
+  <script src="js/layers.js"></script>
+  <script src="js/timeline.js"></script>
+  <script src="js/search.js"></script>
+  <script src="agent/agent-api.js"></script>
+  <script src="agent/weather-context.js"></script>
+  <script src="agent/weather-agent.js"></script>
+  <script src="agent/weather-chart.js"></script>
+  <script src="agent/weather-report.js"></script>
+
+</body>
+</html>

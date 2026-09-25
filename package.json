@@ -1,0 +1,18 @@
+{
+  "name": "weather-map",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Weather Map (Windy clone) + Trợ lý AI - chạy CẢ frontend và backend Agent cùng lúc bằng 1 lệnh duy nhất (npm run dev). Không gọi LLM API khi khởi động - chỉ khởi động 2 server, LLM chỉ được gọi khi người dùng thật sự hỏi.",
+  "scripts": {
+    "postinstall": "npm install --prefix server",
+    "dev:frontend": "node scripts/static-server.js",
+    "dev:backend": "npm run dev --prefix server",
+    "dev": "concurrently -k -n FRONTEND,BACKEND -c cyan,green \"npm run dev:frontend\" \"npm run dev:backend\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

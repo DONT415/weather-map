@@ -1,0 +1,13 @@
+# Dependencies (cài lại bằng npm install, không cần commit)
+node_modules/
+server/node_modules/
+
+# File .env THẬT chứa API key - KHÔNG BAO GIỜ commit file này.
+# Chỉ commit server/env.example (không có key thật) để người khác biết
+# cần điền field gì.
+server/.env
+.env
+
+# Log/rác thường gặp khi dev
+npm-debug.log*
+.DS_Store
